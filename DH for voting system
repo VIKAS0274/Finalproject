@@ -1,0 +1,65 @@
+
+import csv
+import time
+from hashlib import sha256
+from random import randint
+
+# Diffie-Hellman parameters
+p = 23  # Prime number
+g = 5   # Generator
+
+def generate_private_key():
+    return randint(1, p-1)
+
+def generate_public_key(private_key):
+    return pow(g, private_key, p)
+
+def derive_shared_key(private_key, other_public_key):
+    return pow(other_public_key, private_key, p)
+
+def check_data_integrity(data, shared_key):
+    # Simulate the verification by sleeping for a random interval
+    time.sleep(0.1)
+
+    # Calculate the hash of the data
+    data_hash = sha256(data.encode()).digest()
+
+    # In a real implementation, perform cryptographic verification
+    # on the data using the shared key (e.g., symmetric encryption)
+    # and verify the authenticity and integrity of the data.
+    # Return True or False based on the verification result.
+    return True
+
+def detect_forgeries(csv_file, shared_key):
+    with open(csv_file, 'r') as f:
+        reader = csv.reader(f)
+
+        for i, row in enumerate(reader):
+            # Check the integrity of each data entry
+            start_time = time.time()
+            is_authentic = check_data_integrity(','.join(row), shared_key)
+            end_time = time.time()
+            detection_time = end_time - start_time
+
+            if not is_authentic:
+                print(f"Forgery detected in row {i+1}!")
+
+            print(f"Processed row {i+1}, Detection time: {detection_time:.4f} seconds")
+
+    f.close()
+
+
+# Generate private key and public key for Diffie-Hellman
+private_key = generate_private_key()
+public_key = generate_public_key(private_key)
+
+# Load the other party's public key (in a real scenario, this would be obtained through a secure channel)
+other_public_key = public_key
+
+# Perform Diffie-Hellman key exchange to derive the shared key
+shared_key = derive_shared_key(private_key, other_public_key)
+
+# Provide the input CSV file name
+csv_file = 'voter.csv'
+
+detect_forgeries(csv_file, shared_key)
