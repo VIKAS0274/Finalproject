@@ -1,0 +1,74 @@
+
+import csv
+import time
+
+# Read the input CSV file
+def read_csv(input_file):
+    with open(input_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            # Process the row data as needed
+            password = row['Voter ID']
+            # Add other relevant fields from the CSV file
+
+            # Call the QKD algorithm function
+            qkd_algorithm(password)
+
+# Perform the QKD algorithm
+def qkd_algorithm(password):
+    # Start the timer
+    start_time = time.process_time()
+
+    # Step 1: Generate a random string for key generation
+    random_string = generate_random_string()
+
+    # Step 2: Convert the random string to a binary representation
+    binary_string = string_to_binary(random_string)
+
+    # Step 3: Encode the binary string into quantum states (e.g., using qubits)
+    quantum_states = encode_quantum_states(binary_string)
+
+    # Step 4: Transmit the quantum states over a quantum channel
+
+    # Step 5: Receive the quantum states
+
+    # Step 6: Perform key measurements and extract a shared key
+    shared_key = measure_quantum_states(quantum_states)
+
+    # Step 7: Convert the shared key to a usable form (e.g., a password, symmetric key)
+
+    # Step 8: Perform authentication or encryption using the shared key
+
+    # Step 9: Verify the results and detect unauthorized access or forgeries
+
+    # Stop the timer and calculate the elapsed time
+    end_time = time.process_time()
+    elapsed_time = end_time - start_time
+    print(f"Time taken to detect: {elapsed_time} seconds")
+
+# Generate a random string for key generation
+def generate_random_string():
+    # Generate and return a random string of sufficient length
+    pass
+
+# Convert a string to its binary representation
+def string_to_binary(string):
+    # Convert the string to binary representation
+    # Return the binary representation as a string or list of bits
+    pass
+
+# Encode the binary string into quantum states (e.g., qubits)
+def encode_quantum_states(binary_string):
+    # Encode the binary string into quantum states (e.g., using qubits)
+    # Return the quantum states
+    pass
+
+# Measure the quantum states and extract a shared key
+def measure_quantum_states(quantum_states):
+    # Measure the quantum states and extract a shared key
+    # Return the shared key
+    pass
+
+# Main program
+input_file = "voter.csv"
+read_csv(input_file)
