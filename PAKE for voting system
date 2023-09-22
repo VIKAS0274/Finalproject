@@ -1,0 +1,80 @@
+import csv
+import time
+import secrets
+import string
+
+# Read input CSV file
+def read_csv(input_file):
+    with open(input_file, 'r') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            # Process the row data as needed
+            password = row['Voter ID']
+            # Add other relevant fields from the CSV file
+
+            # Call the PAKE algorithm function
+            pake_algorithm(password)
+
+# Perform PAKE algorithm
+def pake_algorithm(password):
+    start_time = time.process_time()
+
+    # Generate a random salt value
+    salt = generate_salt()
+
+    # Generate a shared secret key
+    shared_key = generate_shared_key(password, salt)
+
+    # Apply a cryptographic hash function
+    hashed_key = hash_function(shared_key)
+
+    # Generate a token for authentication
+    token = generate_token(hashed_key)
+
+    # Send token to the server for verification
+    verify_result = send_token_to_server(token)
+
+    if verify_result:
+        print("Access granted. Unauthorized access or forgeries not detected.")
+    else:
+        print("Unauthorized access or forgeries detected.")
+
+    end_time = time.process_time()
+    elapsed_time = end_time - start_time
+    print(f"Time taken to detect: {elapsed_time} seconds")
+
+# Generate a random salt value
+def generate_salt(length=16):
+    # Generate and return a random salt valu
+    # Generate a random salt of the specified length
+    salt_characters = string.ascii_letters + string.digits
+    salt = ''.join(secrets.choice(salt_characters) for _ in range(length))
+    return salt
+
+
+# Generate a shared secret key
+def generate_shared_key(password, salt):
+    # Generate a shared secret key using the password and salt
+    shared_key = password + salt
+    return shared_key
+
+# Apply a cryptographic hash function
+def hash_function(data):
+    # Apply a cryptographic hash function to the data and return the result
+    pass
+
+# Generate a token for authentication
+def generate_token(data):
+    # Generate a token using the data and return the result
+    pass
+
+# Send token to server for verification
+def send_token_to_server(token):
+    # Send the token to the server for verification
+    # Return the verification result (True if token is valid, False otherwise)
+    pass
+
+# Main program
+input_file = "voter.csv"
+read_csv(input_file)
+
